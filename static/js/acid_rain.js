@@ -1,13 +1,13 @@
 // Initialize Leaflet map
-var map = L.map('map').setView([51.505, -0.09], 13); // Set the initial view coordinates and zoom level
+var map = L.map('map').setView([51.505, -0.09], 13); 
 
-// Add base map layer (you can choose other map providers like OpenStreetMap)
+// Add base map layer (OpenStreetMap)
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 }).addTo(map);
 
 // Load GeoJSON data from file
-fetch('acidrain.geojson')
+fetch('static/data/Raw CSV Files')
     .then(response => response.json())
     .then(data => {
         // Add GeoJSON layer to map
@@ -16,3 +16,4 @@ fetch('acidrain.geojson')
     .catch(error => {
         console.error('Error loading GeoJSON file:', error);
     });
+
