@@ -3,9 +3,7 @@ DROP TABLE IF EXISTS copd CASCADE;
 DROP TABLE IF EXISTS current_asthma CASCADE;
 DROP TABLE IF EXISTS coronary_heart_disease CASCADE;
 
--- ON COLUMN Data_Value_Footnote_Symbol 'No data in this column'
--- Data_Value_Footnote 'No data in this column'
--- TractFIPS 'No data in this column'
+
 CREATE TABLE cancer (
 	Year INT,
 	StateAbbr VARCHAR(30),
@@ -22,20 +20,26 @@ CREATE TABLE cancer (
 	Data_Value VARCHAR (10) NOT NULL,
 	Low_Confidence_Limit VARCHAR (10) NOT NULL,
 	High_Confidence_Limit VARCHAR (10) NOT NULL,
-	Data_Value_Footnote_Symbol VARCHAR(30) NOT NULL,
-	Data_Value_Footnote VARCHAR(30) NOT NULL,
 	PopulationCount INT NOT NULL,
 	GeoLocation VARCHAR (50) NOT NULL,
 	CategoryIDData_Value_Type VARCHAR(30) NOT NULL,
 	MeasureId VARCHAR(30) NOT NULL,
 	CityFIPS VARCHAR(30) NOT NULL,
-	TractFIPS VARCHAR(30) NOT NULL,
-	Short_Question_Text VARCHAR(100) NOT NULL	
+	Short_Question_Text VARCHAR(100) NOT NULL,
+	Latitude VARCHAR(30) NOT NULL,
+	Longitude VARCHAR(30) NOT NULL,	
+	ap_Latitude VARCHAR(30) NOT NULL,	
+	ap_Longitude VARCHAR(30) NOT NULL,	
+	CO VARCHAR(30) NOT NULL,
+	NO VARCHAR(30) NOT NULL,
+	NO2	VARCHAR(30) NOT NULL,
+	O3	VARCHAR(30) NOT NULL,
+	SO2	VARCHAR(30) NOT NULL,
+	PM2_5 VARCHAR(30) NOT NULL,
+	PM10 VARCHAR(30) NOT NULL,	
+	NH3 VARCHAR(30) NOT NULL
 );
 
--- ON COLUMN Data_Value_Footnote_Symbol 'No data in this column'
--- Data_Value_Footnote 'No data in this column'
--- TractFIPS 'No data in this column'
 CREATE TABLE copd (
 	Year INT,
 	StateAbbr VARCHAR(30),
@@ -52,19 +56,25 @@ CREATE TABLE copd (
 	Data_Value VARCHAR (10) NOT NULL,
 	Low_Confidence_Limit VARCHAR (10) NOT NULL,
 	High_Confidence_Limit VARCHAR (10) NOT NULL,
-	Data_Value_Footnote_Symbol VARCHAR(30) NOT NULL,
-	Data_Value_Footnote VARCHAR(30) NOT NULL,
 	PopulationCount INT NOT NULL,
 	GeoLocation VARCHAR (50) NOT NULL,
 	CategoryIDData_Value_Type VARCHAR(30) NOT NULL,
 	MeasureId VARCHAR(30) NOT NULL,
 	CityFIPS VARCHAR(30) NOT NULL,
-	TractFIPS VARCHAR(30) NOT NULL,
-	Short_Question_Text VARCHAR(100) NOT NULL	
+	Short_Question_Text VARCHAR(100) NOT NULL,
+	Latitude VARCHAR(30) NOT NULL,	
+	Longitude VARCHAR(30) NOT NULL,
+	ap_Latitude VARCHAR(30) NOT NULL,
+	ap_Longitude VARCHAR(30) NOT NULL,
+	CO VARCHAR(30) NOT NULL,
+	NO VARCHAR(30) NOT NULL,
+	NO2 VARCHAR(30) NOT NULL,
+	O3 VARCHAR(30) NOT NULL,
+	SO2 VARCHAR(30) NOT NULL,
+	PM2_5 VARCHAR(30) NOT NULL,
+	PM10 VARCHAR(30) NOT NULL,
+	NH3 VARCHAR(30) NOT NULL
 );
--- ON COLUMN Data_Value_Footnote_Symbol 'No data in this column'
--- Data_Value_Footnote 'No data in this column'
--- TractFIPS 'No data in this column'
 
 CREATE TABLE current_asthma (
 	Year INT,
@@ -82,19 +92,25 @@ CREATE TABLE current_asthma (
 	Data_Value VARCHAR (10) NOT NULL,
 	Low_Confidence_Limit VARCHAR (10) NOT NULL,
 	High_Confidence_Limit VARCHAR (10) NOT NULL,
-	Data_Value_Footnote_Symbol VARCHAR(30) NOT NULL,
-	Data_Value_Footnote VARCHAR(30) NOT NULL,
 	PopulationCount INT NOT NULL,
 	GeoLocation VARCHAR (50) NOT NULL PRIMARY KEY,
 	CategoryIDData_Value_Type VARCHAR(30) NOT NULL,
 	MeasureId VARCHAR(30) NOT NULL,
 	CityFIPS VARCHAR(30) NOT NULL,
-	TractFIPS VARCHAR(30) NOT NULL,
-	Short_Question_Text VARCHAR(100) NOT NULL	
+	Short_Question_Text VARCHAR(100) NOT NULL,
+	Latitude VARCHAR(30) NOT NULL,
+	Longitude VARCHAR(30) NOT NULL,
+	ap_Latitude VARCHAR(30) NOT NULL,
+	ap_Longitude VARCHAR(30) NOT NULL,
+	CO VARCHAR(30) NOT NULL,
+	NO VARCHAR(30) NOT NULL,
+	NO2 VARCHAR(30) NOT NULL,
+	O3 VARCHAR(30) NOT NULL,
+	SO2 VARCHAR(30) NOT NULL,
+	PM2_5 VARCHAR(30) NOT NULL,
+	PM10 VARCHAR(30) NOT NULL,
+	NH3 VARCHAR(30) NOT NULL
 );
--- ON COLUMN Data_Value_Footnote_Symbol 'No data in this column'
--- Data_Value_Footnote 'No data in this column'
--- TractFIPS 'No data in this column'
 
 CREATE TABLE coronary_heart_disease (
 	Year INT,
@@ -112,15 +128,24 @@ CREATE TABLE coronary_heart_disease (
 	Data_Value VARCHAR (10) NOT NULL,
 	Low_Confidence_Limit VARCHAR (10) NOT NULL,
 	High_Confidence_Limit VARCHAR (10) NOT NULL,
-	Data_Value_Footnote_Symbol VARCHAR(30) NOT NULL,
-	Data_Value_Footnote VARCHAR(30) NOT NULL,
 	PopulationCount INT NOT NULL,
 	GeoLocation VARCHAR (50) NOT NULL PRIMARY KEY,
 	CategoryIDData_Value_Type VARCHAR(30) NOT NULL,
 	MeasureId VARCHAR(30) NOT NULL,
 	CityFIPS VARCHAR(30) NOT NULL,
-	TractFIPS VARCHAR(30) NOT NULL,
-	Short_Question_Text VARCHAR(100) NOT NULL	
+	Short_Question_Text VARCHAR(100) NOT NULL,
+	Latitude VARCHAR(30) NOT NULL,
+	Longitude VARCHAR(30) NOT NULL,
+	ap_Latitude VARCHAR(30) NOT NULL,
+	ap_Longitude VARCHAR(30) NOT NULL,
+	CO VARCHAR(30) NOT NULL,
+	NO VARCHAR(30) NOT NULL,
+	NO2 VARCHAR(30) NOT NULL,
+	O3 VARCHAR(30) NOT NULL,
+	SO2 VARCHAR(30) NOT NULL,
+	PM2_5 VARCHAR(30) NOT NULL,
+	PM10 VARCHAR(30) NOT NULL,
+	NH3 VARCHAR(30) NOT NULL
 -- 	FOREIGN KEY (CityNAME) REFERENCES cancer(CityName),
 -- 	FOREIGN KEY (Low_Confidence_limit) REFERENCES copd (Low_Confidence_limit),
 -- 	FOREIGN Key (MeasureId) REFERENCES current_asthma (MeasureId)
