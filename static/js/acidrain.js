@@ -8,51 +8,48 @@ var baseLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
 
 // Load GeoJSON data for state boundaries
 d3.json('../static/data/us-state-boundaries.geojson').then(stateBoundaryData => {
-    // Create the GeoJSON layer using the loaded data
-    var stateBoundaryLayer = L.geoJSON(stateBoundaryData, {
-        style: {
-            color: 'black',
-            weight: 0.5,
-            fill: false,
-        }
-    }).addTo(myMap);
+  // Create the GeoJSON layer using the loaded data
+  var stateBoundaryLayer = L.geoJSON(stateBoundaryData, {
+      style: {
+          color: 'black',
+          weight: 0.5,
+          fill: false,
+      }
+  }).addTo(myMap);
 });
 
-  // Fetch JSON data for first layer
-  fetch('../static/data/acidrain.json')
-    .then(response => response.json())
-    .then(data => plotBubbles(data));
+// Load JSON data
+fetch('../static/data/acidrain.json')
+.then(response => response.json())
+.then(data => {
+  // Extract NO3 and SO4 values into an array
+  var values = data.map(site => site.NO3 + site.SO4);
 
-  function plotBubbles(data) {
-    var svg = d3.select(map.getPanes().overlayPane).append("svg");
+  // Define the color scale using Chroma.js
+  var colorScale = chroma.scale(['green', 'red']).domain([Math.min(...values), Math.max(...values)]);
 
-    var g = svg.append("g").attr("class", "leaflet-zoom-hide");
+  // Loop through each data point and add a CircleMarker to the map
+  data.forEach(site => {
+    // Calculate the sum of NO3 and SO4
+    var sum = site.NO3 + site.SO4;
 
-    data.forEach(function(d) {
-      var circle = L.circle([d.lat, d.lng], {
-        radius: d.r,
-      }).addTo(map);
+    // Get color based on the value
+    var color = colorScale(sum).hex();
 
-      var marker = g.append("circle")
-        .attr("class", "bubble")
-        .attr("cx", function() { return map.latLngToLayerPoint([d.lat, d.lng]).x; })
-        .attr("cy", function() { return map.latLngToLayerPoint([d.lat, d.lng]).y; })
-        .attr("r", d.r);
+    // Create a CircleMarker at the specified latitude and longitude
+    L.circleMarker([site.Latitude, site.Longitude], {
+      radius: Math.sqrt(sum) * 5, // Adjust the multiplier for proper scaling
+      fillColor: color,
+      color: 'white',
+      weight: 1,
+      opacity: 1,
+      fillOpacity: 0.7
+    })
 
-      var gradient = svg.append("defs")
-        .append("radialGradient")
-        .attr("id", "gradient")
-        .attr("cx", "50%")
-        .attr("cy", "50%")
-        .attr("r", "50%")
-        .attr("fx", "50%")
-        .attr("fy", "50%");
-
-      gradient.append("stop")
-        .attr("offset", "0%")
-        .style("stop-color", function() { return d.color1; });
-      gradient.append("stop")
-        .attr("offset", "100%")
-        .style("stop-color", function() { return d.color2; });
-    });
-  }
+    .bindPopup(`<b>${site.siteName}</b><br>NO3: ${site.NO3}<br>SO4: ${site.SO4}<br>Sum: ${sum}`)
+    .addTo(myMap);
+  });
+})
+.catch(error => {
+  console.error('Error loading JSON data:', error);
+});
