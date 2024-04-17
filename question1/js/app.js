@@ -1,134 +1,80 @@
-// Get endpoint for data
-const url = "https://static.bc-edx.com/data/dl-1-2/m14/lms/starter/samples.json"
+let data; // Declare data variable globally
 
-// Fetch json data and console log it
-let data = d3.json(url).then(function(data) {
-    console.log(data);
-})
-
-// Create function to add IDs/initialize dashboard
-function init() {
-    // Dropdown menu selector
-    let dropdownMenu = d3.select("#selDataset");
-    // Fetch data for the dropdown selector
-    d3.json(url).then(function(data) {
-        let sampleNames = data.names;
-        // Iterate through array and append each name
-        sampleNames.forEach((name) => {
-            // console.log(name)
-            // Append each value to populate dropdown menu
-            dropdownMenu.append('option').text(name).property('value', name);
+// Fetch JSON data and populate dropdown menu
+fetch('data/json/cancer_air_pollution.json')
+    .then(response => response.json())
+    .then(jsonData => {
+        data = jsonData; // Assign fetched data to the global variable
+        // Extract city names from the data
+        let cities = data.map(city => city.CityName);
+        
+        // Populate the dropdown menu with city names
+        let dropdownMenu = d3.select("#selDataset");
+        cities.forEach(city => {
+            dropdownMenu.append('option').text(city).property('value', city);
         });
-
-            // Call first sample
-            let firstSample = sampleNames[0]
-            // console.log(firstSample)
-
-            // Call first plots
-            buildBarPlot(firstSample);
-            buildBubblePlot(firstSample);
-            buildMetadata(firstSample);
+        
+        // Initialize the dashboard with the first city
+        init(data[0]);
     })
+    .catch(error => console.error('Error fetching data:', error));
+
+// Function to initialize the dashboard with metadata and bar plot
+function init(cityData) {
+    buildMetadata(cityData);
+    buildBarPlot(cityData);
 }
 
-init()
+// Function to build metadata
+function buildMetadata(cityData) {
+    // Select panel from HTML and set to variable
+    let panel = d3.select("#sample-metadata");
+    panel.html("");
 
-// Create function to add metadata
-function buildMetadata (sampleID) {
-    // Fetch data
-    d3.json(url).then(function(data) {
-        let metadata = data.metadata;
-
-        // Filter data to get values for each sample
-        let sampleArray = metadata.filter(sample => sample.id == sampleID);
-        // Set first object in sample array to variable
-        let sample = sampleArray[0];
-
-        // Select panel from html and set to variable
-        let panel = d3.select("#sample-metadata");
-        panel.html("");
-        // Loop through each key and append data to panel
-        for (key in sample) {
-            panel.append("h6").text(key.toUpperCase()+": "+sample[key])
+    // Loop through each key-value pair in city data and append to panel
+    for (let [key, value] of Object.entries(cityData)) {
+        // Filter keys to include only specific ones
+        if (["Year", "StateAbbr", "StateDesc", "CityName", "DataSource", "UniqueID", "PopulationCount", "Latitude", "Longitude"].includes(key)) {
+            panel.append("h6").text(key.toUpperCase() + ": " + value);
         }
-    })
+    }
 }
 
-// Create function to build bar plot
-function buildBarPlot (sampleID) {
-    d3.json(url).then(function(data) {
-        let samples = data.samples;
+// Function to build bar plot
+function buildBarPlot(cityData) {
+    // Extract only the pollutant names and values from city data
+    let pollutants = Object.keys(cityData).filter(key => ["CO", "NO", "NO2", "O3", "SO2", "PM2.5", "PM10", "NH3"].includes(key));
+    let values = pollutants.map(pollutant => cityData[pollutant]);
 
-    // Filter data to get values for each sample
-    let sampleArray = samples.filter(sample => sample.id == sampleID);
-    let sample = sampleArray[0];
-    
-    // Assign variables to sample values
-    let otu_ids = sample.otu_ids
-    let sample_values = sample.sample_values
-    let otu_labels = sample.otu_labels
-    
-    // Set variable for plot values
-    let trace1 = [
-        {x: sample_values.slice(0,10).reverse(),
-        y: otu_ids.slice(0,10).map(otu_id => "OTU "+otu_id).reverse(),
-        text: otu_labels.slice(0,10).reverse(),
-        type:"bar",
-        orientation:"h" }
-    ];
-    // Define layout
-    let layout = {
-        title:""
+    // Create trace for bar plot
+    let trace1 = {
+        x: values,
+        y: pollutants,
+        type: "bar",
+        orientation: "h",
+        marker: {
+            color: 'rgba(50,171,96,0.6)',
+            width: 1
+        }
     };
-
-    // Call Plotly to plot 
-    Plotly.newPlot("bar", trace1, layout)
-
-    });
-
-};
-
-// Function to build bubble plot
-function buildBubblePlot (sampleID) {
-    d3.json(url).then(function(data) {
-        let samples = data.samples;
-
-    // Filter data to get values for each sample
-    let sampleArray = samples.filter(sample => sample.id == sampleID);
-    let sample = sampleArray[0];
-    
-    // Assign variables to sample values
-    let otu_ids = sample.otu_ids
-    let sample_values = sample.sample_values
-    let otu_labels = sample.otu_labels
-    
-    // Set variable for plot values
-    let trace2 = [
-        {x: otu_ids,
-         y: sample_values,
-         text: otu_labels,
-         mode:"markers",
-         marker:{
-            size: sample_values, 
-            color: otu_ids,
-            colorscale: "Earth"
-         }
-         
-        }];
 
     // Define layout
     let layout = {
-        xaxis: {title:"OTU ID"}
+        title: "Pollutant Levels in " + cityData.CityName,
+        xaxis: { title: "Pollutant Level" },
+        yaxis: { title: "Pollutant" }
     };
-    // Call Plotly to plot
-    Plotly.newPlot("bubble", trace2, layout)
 
-    });
-};
+    // Plot the bar plot
+    Plotly.newPlot("bar", [trace1], layout);
+}
 
-// Function to update plots when changed
-function optionChanged(sampleID) {
-    buildMetadata(sampleID);
-    buildBarPlot(sampleID);
-    buildBubblePlot(sampleID);
-};
+// Function to update plots when city is changed
+function optionChanged(cityName) {
+    // Find the selected city data from the fetched data
+    let selectedCity = data.find(city => city.CityName === cityName);
+    
+    // Update metadata and bar plot with selected city data
+    buildMetadata(selectedCity);
+    buildBarPlot(selectedCity);
+}
