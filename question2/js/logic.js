@@ -51,7 +51,7 @@ function createMarkers(data, disease) {
 
 // Load data from each JSON file and create layers for each disease
 // Cancer
-fetch('static/data/json/cancer_air_pollution.json')
+fetch('data/json/cancer_air_pollution.json')
     .then(response => response.json())
     .then(cancerData => {
         let cancerLayer = createMarkers(cancerData, 'Cancer (except skin)');
@@ -63,7 +63,7 @@ fetch('static/data/json/cancer_air_pollution.json')
     });
 
 // COPD
-fetch('static/data/json/copd_air_pollution.json')
+fetch('data/json/copd_air_pollution.json')
     .then(response => response.json())
     .then(copdData => {
         let copdLayer = createMarkers(copdData, 'COPD');
@@ -75,7 +75,7 @@ fetch('static/data/json/copd_air_pollution.json')
     });
 
 // CHD
-fetch('static/data/json/chd_air_pollution.json')
+fetch('data/json/chd_air_pollution.json')
     .then(response => response.json())
     .then(chdData => {
         let chdLayer = createMarkers(chdData, 'Coronary Heart Disease');
@@ -87,7 +87,7 @@ fetch('static/data/json/chd_air_pollution.json')
     });
 
 // Current Asthma
-fetch('static/data/json/casthma_air_pollution.json')
+fetch('data/json/casthma_air_pollution.json')
     .then(response => response.json())
     .then(casthmaData => {
         let casthmaLayer = createMarkers(casthmaData, 'Current Asthma');
