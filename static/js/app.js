@@ -1,7 +1,7 @@
 let data; // Declare data variable
 
 // Fetch JSON data and populate dropdown menu
-fetch('data/json/cancer_air_pollution.json')
+fetch('static/data/json/cancer_air_pollution.json')
     .then(response => response.json())
     .then(jsonData => {
         data = jsonData; // Assign fetched data to the global variable
