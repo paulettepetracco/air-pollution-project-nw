@@ -18,77 +18,79 @@ In this project we will attempt to visualize data from several sources. We will 
    (We could look at urban vs. rural areas)?
 
 Datasets Used: 
-    * Weather and Climate Data (This link has a lot of good resources for meteorological data and climate (2024))
+    - Weather and Climate Data (This link has a lot of good resources for meteorological data and climate (2024))
 
-    * Openweather API for extracting data about specific molecules per each lat and long point. Could pull data for the top 500 cities in US
+    - Openweather API for extracting data about specific molecules per each lat and long point. Could pull data for the top 500 cities in 
+      US
 
-    * National Atmospheric Deposition Program Has good resources regarding acid rain deposition (SO4 + NO3 deposits)
+    - National Atmospheric Deposition Program Has good resources regarding acid rain deposition (SO4 + NO3 deposits)
 
-    * CDC 500 Cities Dataset Has 800k rows of data about top 500 US cities and various respiratory/cardiovascular diseases/disorders using age-adjusted, city geographical level filters
+    - CDC 500 Cities Dataset Has 800k rows of data about top 500 US cities and various respiratory/cardiovascular diseases/disorders using 
+      age-adjusted, city geographical level filters
 
-        * Diseases of interest:
+        - Diseases of interest:
 
-            * COPD
+            - COPD
 
-            * Current asthma 
+            - Current asthma 
 
-            * Coronary heart disease
+            - Coronary heart disease
 
-            * Cancer (except skin)
+            - Cancer (except skin)
 
-            * (Additional diseases as evaluated)
+            - (Additional diseases as evaluated)
 
 **Task Breakdown:**
 **Paulette** 
 
 **Data used**
 
-    * 500 Cities Dataset from CDC: Using age-adjusted, city geographical level filters to eliminate extraneous data + keep relevance
+    - 500 Cities Dataset from CDC: Using age-adjusted, city geographical level filters to eliminate extraneous data + keep relevance
 
-    * Acid Rain Dataset from National Atmospheric Deposition Program (NADP) to review SO4 + NO3 deposits
+    - Acid Rain Dataset from National Atmospheric Deposition Program (NADP) to review SO4 + NO3 deposits
 
-    * Air Pollution Data from Open Weather API
+    - Air Pollution Data from Open Weather API
 
-        * to capture the latitude and longitude data and merge with the 500 Cities Dataset breaking out into cancer, current Asthma, 
+        - to capture the latitude and longitude data and merge with the 500 Cities Dataset breaking out into cancer, current Asthma, 
           coronary heart disease and COPD.
           
-        * also using latitude and longitude data and merge with the NADP data to review the S04 and N03 deposits. 
+        - also using latitude and longitude data and merge with the NADP data to review the S04 and N03 deposits. 
     
     
-**Steps taken for 500 Cities Dataset **
+**Steps taken for 500 Cities Dataset**
 
-    * Use age-adjusted, city geographical level filters to eliminate extraneous data + keep relevance
+    - Use age-adjusted, city geographical level filters to eliminate extraneous data + keep relevance
 
-    * Read relevant csv files and import API keys
+    - Read relevant csv files and import API keys
 
-    * Clean data and make sure relevant latitude/longitude data is present
+    - Clean data and make sure relevant latitude/longitude data is present
 
-    * Pull OpenWeatherAPI data and merge it with the 500 City data based on the latitude and longitude
+    - Pull OpenWeatherAPI data and merge it with the 500 City data based on the latitude and longitude
 
-    * Create Pandas DataFrames for:
+    - Create Pandas DataFrames for:
 
-        * Cancer
+        - Cancer
 
-        * Current Asthma
+        - Current Asthma
 
-        * Coronary Heart Disease
+        - Coronary Heart Disease
 
-        * COPD
+        - COPD
 
 
 **Step taken for National Atmospheric Deposition Program (NADP)**
 
-    * Merge raw CSV files to create the ntn_data DataFrame
+    - Merge raw CSV files to create the ntn_data DataFrame
 
-    * Read relevant csv files and import API keys
+    - Read relevant csv files and import API keys
 
-    * Clean data and make sure latitude and longitude data is present
+    - Clean data and make sure latitude and longitude data is present
 
-    * Pull OpenWeatherAPI data and merge with the NADP data base don the latitude and longitude
+    - Pull OpenWeatherAPI data and merge with the NADP data base don the latitude and longitude
 
-    * Create a Pandas DataFrame for:
+    - Create a Pandas DataFrame for:
 
-        * acid_rain_ap_df
+        - acid_rain_ap_df
 
 **Create a SQL database for both CDC 500 Cities and NADP Acid Rain data**
 
@@ -97,61 +99,65 @@ Datasets Used:
 **Lauren**
 
 **Question 1:**
-s
-        * Select data for visualization (air pollution)
+
+        - Select data for visualization (air pollution)
         
-        * Data must include pollutants and lat long for mapping
+        - Data must include pollutants and lat long for mapping
 
-        * Map of US via lat + long data with colors indicating pollutant concentration amounts
+        - Map of US via lat + long data with colors indicating pollutant concentration amounts
 
-            * Get dataset from: Openweather API
+            - Get dataset from: Openweather API
 
-            * Extract data on types of air pollutants (AQI)
+            - Extract data on types of air pollutants (AQI)
 
-            * Use Plotly to create bubble map type based on the 500 cities based on AQI
+            - Use Plotly to create bubble map type based on the 500 cities based on AQI
 
 **Lauren**
 
 **Question 2:**
 
-        * Select data for visualization: air pollution pollutants from openweather API + incidence (using model estimates of data_values) 
+        - Select data for visualization: air pollution pollutants from openweather API + incidence (using model estimates of data_values) 
           of respiratory/cardiovascular diseases/disorders from 500 Cities Dataset
 
 
-        * 1 visualization idea:
+        - 1 visualization idea:
 
-            * Make list of 500 top city names from CDC csv (make column into list)
+            - Make list of 500 top city names from CDC csv (make column into list)
 
-            * Convert city name to lat/lon using geocoding API (dict look like this: { "name": "New York", "lat": 40.7128, "lng": -74.0060})
+            - Convert city name to lat/lon using geocoding API (dict look like this: { "name": "New York", "lat": 40.7128, "lng": -74.
+              0060})
 
-            * Append all the data values for each respiratory/cardiovascular diseases of interest ({ "name": "New York", "lat": 40.7128, "lng": -74.0060, "copd_data_value": 10, “coronary_data_value: 20, etc. })
+            - Append all the data values for each respiratory/cardiovascular diseases of interest ({ "name": "New York", "lat": 40.7128, 
+              "lng": -74.0060, "copd_data_value": 10, “coronary_data_value: 20, etc. })
 
-            * Use Leaflet to make each city point a bigger circle (or some other measure) based on if the data_value (using age-adjusted, city geographical level filters) is higher or lower
+            - Use Leaflet to make each city point a bigger circle (or some other measure) based on if the data_value (using age-adjusted, 
+              city geographical level filters) is higher or lower
 
-            * Make layers for each molecule from the open weather API
+            - Make layers for each molecule from the open weather API
 
-                    * Make list: (city, lat, lng, co2: value, no2: value) - make each circle bigger or smaller based on if higher or lower for each pollutant value
+                    - Make list: (city, lat, lng, co2: value, no2: value) - make each circle bigger or smaller based on if higher or lower 
+                      for each pollutant value
 
-            * Use overlay object feature to select all layers at once to compare how air pollutants are correlated with asthma by looking 
+            - Use overlay object feature to select all layers at once to compare how air pollutants are correlated with asthma by looking 
               at opacity of the cities i.e. cities with more opacity show a higher correlation
 
-    * Can also create bar plots comparing levels of air pollution to health issues
+    - Can also create bar plots comparing levels of air pollution to health issues
 
 **Rachel**
 
 **Question 3:**
 
-    * Select data for visualization (acid rain deposition)
+    - Select data for visualization (acid rain deposition)
 
-    * Visualize via scatter plot or choropleth mapbox
+    - Visualize via scatter plot or choropleth mapbox
 
-        * Get dataset from: National Atmospheric Deposition Program
+        - Get dataset from: National Atmospheric Deposition Program
 
-        * Extract data for both Sulfur and Nitrogen deposits
+        - Extract data for both Sulfur and Nitrogen deposits
 
-        * Use Plotly to create colored points based on the region represented in the NADP dataset (SO4 + NO3 deposits)
+        - Use Plotly to create colored points based on the region represented in the NADP dataset (SO4 + NO3 deposits)
 
-    * Ideally, this would be included as a layer like that of question 1
+    - Ideally, this would be included as a layer like that of question 1
 
 
 **Ethical Consideration**
