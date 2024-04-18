@@ -1,4 +1,4 @@
-let data; // Declare data variable globally
+let data; // Declare data variable
 
 // Fetch JSON data and populate dropdown menu
 fetch('data/json/cancer_air_pollution.json')
@@ -33,7 +33,7 @@ function buildMetadata(cityData) {
 
     // Loop through each key-value pair in city data and append to panel
     for (let [key, value] of Object.entries(cityData)) {
-        // Filter keys to include only specific ones
+        // Filter keys to include only relevant ones
         if (["Year", "StateAbbr", "StateDesc", "CityName", "DataSource", "UniqueID", "PopulationCount", "Latitude", "Longitude"].includes(key)) {
             panel.append("h6").text(key.toUpperCase() + ": " + value);
         }

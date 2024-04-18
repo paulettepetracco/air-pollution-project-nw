@@ -12,7 +12,7 @@ function calculateMarkerSize(value) {
     return Math.pow(value/3.1, 2.5);
 }
 
-// Function to calculate marker color based on sum of pollutants using Chroma.js
+// Function to calculate marker color based on sum of pollutants using chroma.js
 function calculateMarkerColor(sum) {
     // Use a logarithmic scale and adjust the domain to match the range of sum values
     return chroma.scale(['#00ff00', '#ff0000']).domain([0, 1.6]).mode('lab')(sum).hex();
@@ -32,7 +32,7 @@ function calculatePollutantSum(city) {
         "NH3": 200
     };
 
-    // Initialize sum
+    // Set sum initially at zero
     let sum = 0;
 
     // Calculate sum of each pollutant's value's ratio to its maximum value
@@ -153,7 +153,7 @@ legend.onAdd = function (map) {
     return div;
 };
 
-
+// Add legend to map
 legend.addTo(map);
 
 
