@@ -26,7 +26,7 @@ fetch('../static/data/acidrain.json')
   var values = data.map(site => site.NO3 + site.SO4);
 
   // Define the color scale using Chroma.js
-  var colorScale = chroma.scale(['green', 'red']).domain([Math.min(...values), Math.max(...values)]);
+  var colorScale = chroma.scale(['blue', 'red']).domain([Math.min(...values), Math.max(...values)]);
 
   // Loop through each data point and add a CircleMarker to the map
   data.forEach(site => {

@@ -3,68 +3,37 @@
 <head>
   <meta charset="UTF-8">
   <title>Acid Rain Data USA</title>
-
+  
   <!-- Leaflet CSS -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-  integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
-  crossorigin=""/>
-
-  <!-- Leaflet JavaScript code -->
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
-  integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
-  crossorigin=""></script>
-
-  <!-- D3 library -->
-  <script src="https://d3js.org/d3.v7.min.js"></script>
-
-  <!-- MomentJS -->
-  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.15.1/moment.min.js"></script>
-
-  <!-- polyfill.io is the library for using newer JavaScript features (such as Object.assign) in older browers. -->
-  <script src="https://cdn.polyfill.io/v2/polyfill.min.js"></script>
-
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css?family=Sanchez" rel="stylesheet">
-
-  <!-- Icons -->
-  <script src="static/js/leaflet.extra-markers.min.js"></script>
-  <link rel="stylesheet" type="text/css" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-  <link rel="stylesheet" href="static/css/leaflet.extra-markers.min.css">
-
+    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+    crossorigin=""/>
+  
   <!-- Our CSS -->
   <link rel="stylesheet" type="text/css" href="static/css/style.css">
-  <style>
-    #map {
-        height: 400px;
-    }
-    .dropdown {
-        position: relative;
-        display: inline-block;
-    }
-    .dropdown-content {
-        display: none;
-        position: absolute;
-        background-color: #f9f9f9;
-        min-width: 160px;
-        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-        padding: 12px 16px;
-        z-index: 1;
-    }
-    .dropdown:hover .dropdown-content {
-        display: block;
-    }
-</style>
+
 </head>
-
 <body>
-
   <!-- The div that holds our map -->
-  <div id="map"></div>
-  <!-- Add the select element here -->
-  <select id="selSiteName"></select>
-  <link href="static/css/style.css" rel="stylesheet" type="text/css"/>
-  <!-- Our JavaScript file -->
+  <div id="map" style="height: 1000px;"></div>
+  
+  <!-- JavaScript libraries -->
+  <!-- Leaflet JavaScript code -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+    crossorigin=""></script>
+  
+  <!-- Chroma.js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/chroma-js/2.1.1/chroma.min.js"></script>
+  
+  <!-- D3 library -->
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+  
+  <!-- Fetch API polyfill for older browsers -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fetch/3.0.0/fetch.min.js"></script>
+  
+  <!-- Your JavaScript file -->
   <script type="text/javascript" src="static/js/acidrain.js"></script>
-
-  </body>
+  
+</body>
 </html>
