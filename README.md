@@ -55,6 +55,8 @@ Datasets Used:
           coronary heart disease and COPD.
           
         - also using latitude and longitude data and merge with the NADP data to review the S04 and N03 deposits. 
+        
+    - Geojson file used to get boundary data for maps (https://public.opendatasoft.com/explore/dataset/us-state-boundaries/export/?flg=en-us)
     
     
 **Steps taken for 500 Cities Dataset**
