@@ -157,7 +157,7 @@ Datasets Used:
 
         - Extract data for both Sulfur and Nitrogen deposits
 
-        - Use Plotly to create colored points based on the region represented in the NADP dataset (SO4 + NO3 deposits)
+        - Use Leaflet and Chroma to create colored points based on the region represented in the NADP dataset (SO4 + NO3 deposits)
 
     - Ideally, this would be included as a layer like that of question 1
 
