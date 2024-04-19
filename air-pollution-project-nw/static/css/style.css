@@ -1,0 +1,26 @@
+body {
+    padding: 0px;
+    margin: 0px;
+  }
+  
+  #map,
+  body,
+  html {
+    height: 100%;
+  }
+  
+  /* add in legend info */
+.legend i {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  margin-right: 8px;
+  border: 1px solid #ccc;
+}
+
+.legend {
+  background-color: white;
+  padding: 5px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
